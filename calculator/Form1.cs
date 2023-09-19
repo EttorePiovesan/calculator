@@ -20,20 +20,22 @@ namespace calculator
         {
             public char Content;
             public bool isBold;
-            public BtnStruct(char c,bool b)
+            public bool isNumber;
+            public BtnStruct(char c,bool b=false, bool n=false)
             {
                 this.Content = c;
                 this.isBold = b;
+                this.isNumber = n;
             }
         }
         private BtnStruct[,] buttons =
         {
-            { new BtnStruct('%',false),new BtnStruct('\u0152',false),new BtnStruct('C',false),new BtnStruct('\u232b',false)},
-            { new BtnStruct('\u215f',false),new BtnStruct('\u00b2',false),new BtnStruct('\u221a',false),new BtnStruct('\u00f7',false)},
-            { new BtnStruct('7',true),new BtnStruct('8',true),new BtnStruct('9',true),new BtnStruct('\u00d7',false)},
-            { new BtnStruct('4',true),new BtnStruct('5',true),new BtnStruct('6',true),new BtnStruct('-',false)},
-            { new BtnStruct('1',true),new BtnStruct('2',true),new BtnStruct('3',true),new BtnStruct('+',false)},
-            { new BtnStruct('\u00b1',false),new BtnStruct('0',true),new BtnStruct(',',false),new BtnStruct('=',false)},
+            { new BtnStruct('%'),new BtnStruct('\u0152'),new BtnStruct('C'),new BtnStruct('\u232b')},
+            { new BtnStruct('\u215f'),new BtnStruct('\u00b2'),new BtnStruct('\u221a'),new BtnStruct('\u00f7')},
+            { new BtnStruct('7',true,true),new BtnStruct('8',true,true),new BtnStruct('9',true,true),new BtnStruct('\u00d7')},
+            { new BtnStruct('4',true,true),new BtnStruct('5',true,true),new BtnStruct('6',true,true),new BtnStruct('-')},
+            { new BtnStruct('1',true,true),new BtnStruct('2',true,true),new BtnStruct('3',true,true),new BtnStruct('+')},
+            { new BtnStruct('\u00b1'),new BtnStruct('0',true,true),new BtnStruct(','),new BtnStruct('=')},
         };
 
         private void calculator_Load(object sender, EventArgs e)
@@ -56,16 +58,26 @@ namespace calculator
                     myButton.Font = new Font("segoe UI", 16,fs);
                     myButton.BackColor = buttons[i, j].isBold ? Color.White : Color.Transparent;  
                     myButton.Text= buttons[i,j].Content.ToString();
+                    myButton.Tag = buttons[i,j];
                     myButton.Width=btnWidth;
                     myButton.Height=btnHeight;
                     myButton.Top = posY;
                     myButton.Left = posX;
                     posX += myButton.Width;
-                    
+                    myButton.Click += button_Click;
                     this.Controls.Add(myButton);
                 }
                 posX=0; posY += btnHeight;
             }
+        }
+
+        private void button_Click(object sender, EventArgs e)
+        {
+            Button clickedButton =(Button)sender;
+            BtnStruct clickedButtonStruct=(BtnStruct)clickedButton.Tag;
+            lblResult.Text += clickedButton.Text;
+            if (clickedButton.Tag.  )
+
         }
     }
 }

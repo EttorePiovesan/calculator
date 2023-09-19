@@ -10,11 +10,13 @@ using System.Windows.Forms;
 
 namespace calculator
 {
-    public partial class Form1 : Form
+    public partial class calculator : Form
     {
-        public Form1()
+        public calculator()
         {
             InitializeComponent();
         }
+
+        
     }
 }

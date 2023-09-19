@@ -34,34 +34,36 @@
             // 
             // lblResult
             // 
-            this.lblResult.AutoSize = true;
-            this.lblResult.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblResult.Location = new System.Drawing.Point(192, 105);
+            this.lblResult.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblResult.Font = new System.Drawing.Font("Segoe UI Semibold", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResult.Location = new System.Drawing.Point(0, 30);
             this.lblResult.Name = "lblResult";
-            this.lblResult.Size = new System.Drawing.Size(54, 62);
+            this.lblResult.Size = new System.Drawing.Size(427, 62);
             this.lblResult.TabIndex = 0;
             this.lblResult.Text = "0";
+            this.lblResult.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // panel1
             // 
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(432, 78);
+            this.panel1.Size = new System.Drawing.Size(427, 30);
             this.panel1.TabIndex = 1;
             // 
             // calculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(432, 623);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(427, 543);
             this.Controls.Add(this.lblResult);
+            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "calculator";
             this.Text = "calculator";
+            this.Load += new System.EventHandler(this.calculator_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

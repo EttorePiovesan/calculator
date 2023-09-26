@@ -123,5 +123,21 @@ namespace calculator
             
 
         }
+
+        private void lblResult_TextChanged(object sender, EventArgs e)
+        {
+            if(lblResult.Text.Length > 16)
+            {
+                lblResult.Text = lblResult.Text.Substring(0, 16);
+            }
+            
+            if(lblResult.Text.Length>11)
+            {
+                int delta=lblResult.Text.Length-11;
+                lblResult.Font = new Font("Segoe UI", 47 - delta* (float)2.8,FontStyle.Bold);
+            }
+            else
+                lblResult.Font = new Font("Segoe UI", 36, FontStyle.Bold);
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,8 @@ namespace calculator
             DecimalPoint,
             PlusMinusSign,
             Backspace,
+            ClearAll,
+            ClearEntry,
             undefined
         }
         public struct BtnStruct
@@ -39,7 +42,7 @@ namespace calculator
         }
         private BtnStruct[,] buttons =
         {
-            { new BtnStruct('%'),new BtnStruct('\u0152'),new BtnStruct('C'),new BtnStruct('\u232b',SymbolType.Backspace)},
+            { new BtnStruct('%'),new BtnStruct('\u0152',SymbolType.ClearEntry),new BtnStruct('C',SymbolType.ClearAll),new BtnStruct('\u232b',SymbolType.Backspace)},
             { new BtnStruct('\u215f'),new BtnStruct('\u00b2'),new BtnStruct('\u221a'),new BtnStruct('\u00f7',SymbolType.Operator)},
             { new BtnStruct('7',SymbolType.Number,true),new BtnStruct('8',SymbolType.Number,true),new BtnStruct('9',SymbolType.Number,true),new BtnStruct('\u00d7',SymbolType.Operator)},
             { new BtnStruct('4',SymbolType.Number,true),new BtnStruct('5',SymbolType.Number,true),new BtnStruct('6',SymbolType.Number,true),new BtnStruct('-',SymbolType.Operator)},
@@ -57,7 +60,6 @@ namespace calculator
             int btnWidth = 80;
             int btnHeight = 60;
             int posX = 0, posY = 80;
-            int cont = 0;
             for(int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < cols; j++)
@@ -114,6 +116,9 @@ namespace calculator
                     if (lblResult.Text == "-0" || lblResult.Text.Length == 0)
                         lblResult.Text = "0";
                     break;
+                case SymbolType.ClearAll:
+                    lblResult.Text = "0";
+                    break;
                 case SymbolType.undefined:
                     break;
                 default: 
@@ -126,18 +131,40 @@ namespace calculator
 
         private void lblResult_TextChanged(object sender, EventArgs e)
         {
-            if(lblResult.Text.Length > 16)
+            if (lblResult.Text.Length > 0)
             {
-                lblResult.Text = lblResult.Text.Substring(0, 16);
+                decimal num = decimal.Parse(lblResult.Text); 
+                string stOut = "";
+                NumberFormatInfo nfi = new CultureInfo("it-IT", false).NumberFormat;
+                int commaPosition = lblResult.Text.IndexOf(",");
+                
+                if (commaPosition == -1)
+                {
+                    nfi.NumberDecimalDigits = 0;
+                }
+                else
+                {
+                    nfi.NumberDecimalDigits = lblResult.Text.Length - commaPosition-1;
+                }
+               
+                
+                
+                stOut = num.ToString("N",nfi);
+                if(lblResult.Text.IndexOf(',') == lblResult.Text.Length - 1) { stOut += ","; }
+                lblResult.Text = stOut;
             }
             
-            if(lblResult.Text.Length>11)
+            if(lblResult.Text.Length > 20)
             {
-                int delta=lblResult.Text.Length-11;
-                lblResult.Font = new Font("Segoe UI", 47 - delta* (float)2.8,FontStyle.Bold);
+                lblResult.Text = lblResult.Text.Substring(0, 20);
             }
-            else
-                lblResult.Font = new Font("Segoe UI", 36, FontStyle.Bold);
+            int textWidth = TextRenderer.MeasureText(lblResult.Text, lblResult.Font).Width;
+            float newSize = lblResult.Font.Size * (((float)lblResult.Size.Width-10) / textWidth);
+            if (newSize>36)
+            {
+                newSize = 36;   
+            }
+            lblResult.Font = new Font("Segoe UI", newSize, FontStyle.Regular);
         }
     }
 }

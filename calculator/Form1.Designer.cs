@@ -38,7 +38,7 @@
             this.lblResult.Font = new System.Drawing.Font("Segoe UI Semibold", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblResult.Location = new System.Drawing.Point(0, 30);
             this.lblResult.Name = "lblResult";
-            this.lblResult.Size = new System.Drawing.Size(427, 62);
+            this.lblResult.Size = new System.Drawing.Size(427, 68);
             this.lblResult.TabIndex = 0;
             this.lblResult.Text = "0";
             this.lblResult.TextAlign = System.Drawing.ContentAlignment.MiddleRight;

@@ -62,7 +62,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "calculator";
-            this.Text = "calculator";
             this.Load += new System.EventHandler(this.calculator_Load);
             this.ResumeLayout(false);
 

@@ -13,9 +13,13 @@ namespace calculator
 {
     public partial class calculator : Form
     {
+        float lblResultBaseFontSize ;
+        const int lblResultMarginWidth = 24;
+        const int lblResultMaxDigits= 25;
         public calculator()
         {
             InitializeComponent();
+            lblResultBaseFontSize = lblResult.Font.Size;
         }
         public enum SymbolType
         {
@@ -113,7 +117,7 @@ namespace calculator
                 case SymbolType.Backspace:
 
                         lblResult.Text = lblResult.Text.Substring(0,lblResult.Text.Length-1);
-                    if (lblResult.Text == "-0" || lblResult.Text.Length == 0)
+                    if (lblResult.Text == "-0" || lblResult.Text.Length == 0 || lblResult.Text == "-")
                         lblResult.Text = "0";
                     break;
                 case SymbolType.ClearAll:
@@ -154,17 +158,19 @@ namespace calculator
                 lblResult.Text = stOut;
             }
             
-            if(lblResult.Text.Length > 20)
+            if(lblResult.Text.Length > lblResultMaxDigits)
             {
-                lblResult.Text = lblResult.Text.Substring(0, 20);
+                lblResult.Text = lblResult.Text.Substring(0, 25);
             }
             int textWidth = TextRenderer.MeasureText(lblResult.Text, lblResult.Font).Width;
-            float newSize = lblResult.Font.Size * (((float)lblResult.Size.Width-10) / textWidth);
-            if (newSize>36)
+            float newSize = lblResult.Font.Size * (((float)lblResult.Size.Width-lblResultMarginWidth) / textWidth);
+            if (newSize>lblResultBaseFontSize)
             {
-                newSize = 36;   
+                newSize = lblResultBaseFontSize;   
             }
             lblResult.Font = new Font("Segoe UI", newSize, FontStyle.Regular);
         }
+
+        
     }
 }

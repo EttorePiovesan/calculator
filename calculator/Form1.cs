@@ -16,6 +16,9 @@ namespace calculator
         float lblResultBaseFontSize ;
         const int lblResultMarginWidth = 24;
         const int lblResultMaxDigits= 25;
+        char lastOperator=' ';
+        decimal operand1,operand2,result;
+        BtnStruct lastClickedButton;
         public calculator()
         {
             InitializeComponent();
@@ -95,11 +98,17 @@ namespace calculator
                 case SymbolType.Number:
                     if (clickedButtonStruct.type == SymbolType.Number)
                     {
-                        if (lblResult.Text == "0") lblResult.Text = "";
+                        if (lblResult.Text == "0" || lastClickedButton.type==SymbolType.Operator) 
+                            lblResult.Text = "";
                         lblResult.Text += clickedButton.Text;
                     }
                     break;
                 case SymbolType.Operator:
+                    if (lastClickedButton.type == SymbolType.Operator && clickedButtonStruct.Content!='=')
+                        lastOperator = clickedButtonStruct.Content;
+                    else
+                        ManageOpertor(clickedButtonStruct);
+
                     break;
                 case SymbolType.DecimalPoint:
                     if (lblResult.Text.IndexOf(",") == -1)
@@ -115,13 +124,19 @@ namespace calculator
                     } 
                     break;
                 case SymbolType.Backspace:
-
-                        lblResult.Text = lblResult.Text.Substring(0,lblResult.Text.Length-1);
-                    if (lblResult.Text == "-0" || lblResult.Text.Length == 0 || lblResult.Text == "-")
-                        lblResult.Text = "0";
+                    if (lastClickedButton.type != SymbolType.Operator)
+                    {
+                        lblResult.Text = lblResult.Text.Substring(0, lblResult.Text.Length - 1);
+                        if (lblResult.Text == "-0" || lblResult.Text.Length == 0)
+                            lblResult.Text = "0";
+                    }  
                     break;
                 case SymbolType.ClearAll:
                     lblResult.Text = "0";
+                    lastOperator = ' ';
+                    operand1 = 0;
+                    operand2 = 0;
+                    result = 0;
                     break;
                 case SymbolType.undefined:
                     break;
@@ -129,12 +144,50 @@ namespace calculator
                     break;
             }
 
-            
+            if(clickedButtonStruct.type!= SymbolType.Backspace)
+                lastClickedButton = clickedButtonStruct;
 
+        }
+
+        private void ManageOpertor(BtnStruct clickedButtonStruct)
+        {
+            if(lastOperator==' ')
+            {
+                operand1=decimal.Parse(lblResult.Text);
+            }else
+            {
+                if(clickedButtonStruct.Content!='=')
+                    operand2= decimal.Parse(lblResult.Text);
+                switch (lastOperator)
+                {
+                    case '+':
+                        result = operand1 + operand2;
+                        break;
+                    case '-':
+                        result = operand1 - operand2;
+                        break;
+                    case '\u00d7':
+                        result = operand1 * operand2;
+                        break;
+                    case '\u00f7':
+                        result = operand1 / operand2;
+                        break;
+                }
+                operand1 = result;
+                lblResult.Text = result.ToString();
+            }
+
+            if (clickedButtonStruct.Content != '=')
+                lastOperator = clickedButtonStruct.Content;
         }
 
         private void lblResult_TextChanged(object sender, EventArgs e)
         {
+            if (lblResult.Text == "-")
+            {
+                lblResult.Text = "0";
+                return;
+            }
             if (lblResult.Text.Length > 0)
             {
                 decimal num = decimal.Parse(lblResult.Text); 

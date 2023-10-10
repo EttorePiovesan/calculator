@@ -36,9 +36,10 @@
             // 
             this.lblResult.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblResult.Font = new System.Drawing.Font("Segoe UI Semibold", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblResult.Location = new System.Drawing.Point(0, 30);
+            this.lblResult.Location = new System.Drawing.Point(0, 24);
+            this.lblResult.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblResult.Name = "lblResult";
-            this.lblResult.Size = new System.Drawing.Size(427, 68);
+            this.lblResult.Size = new System.Drawing.Size(320, 55);
             this.lblResult.TabIndex = 0;
             this.lblResult.Text = "0";
             this.lblResult.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -48,21 +49,24 @@
             // 
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(427, 30);
+            this.panel1.Size = new System.Drawing.Size(320, 24);
             this.panel1.TabIndex = 1;
             // 
             // calculator
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(427, 543);
+            this.ClientSize = new System.Drawing.Size(320, 441);
             this.Controls.Add(this.lblResult);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.Name = "calculator";
             this.Load += new System.EventHandler(this.calculator_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.calculator_KeyPress);
             this.ResumeLayout(false);
 
         }

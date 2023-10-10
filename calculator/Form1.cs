@@ -50,8 +50,8 @@ namespace calculator
         }
         private BtnStruct[,] buttons =
         {
-            { new BtnStruct('%'),new BtnStruct('\u0152',SymbolType.ClearEntry),new BtnStruct('C',SymbolType.ClearAll),new BtnStruct('\u232b',SymbolType.Backspace)},
-            { new BtnStruct('\u215f',SymbolType.SpecialOperator),new BtnStruct('\u00b2'),new BtnStruct('\u221a'),new BtnStruct('\u00f7',SymbolType.Operator)},
+            { new BtnStruct('%',SymbolType.SpecialOperator),new BtnStruct('\u0152',SymbolType.ClearEntry),new BtnStruct('C',SymbolType.ClearAll),new BtnStruct('\u232b',SymbolType.Backspace)},
+            { new BtnStruct('\u215f',SymbolType.SpecialOperator),new BtnStruct('\u00b2',SymbolType.SpecialOperator),new BtnStruct('\u221a',SymbolType.SpecialOperator),new BtnStruct('\u00f7',SymbolType.Operator)},
             { new BtnStruct('7',SymbolType.Number,true),new BtnStruct('8',SymbolType.Number,true),new BtnStruct('9',SymbolType.Number,true),new BtnStruct('\u00d7',SymbolType.Operator)},
             { new BtnStruct('4',SymbolType.Number,true),new BtnStruct('5',SymbolType.Number,true),new BtnStruct('6',SymbolType.Number,true),new BtnStruct('-',SymbolType.Operator)},
             { new BtnStruct('1',SymbolType.Number,true),new BtnStruct('2',SymbolType.Number,true),new BtnStruct('3',SymbolType.Number,true),new BtnStruct('+',SymbolType.Operator)},
@@ -126,6 +126,10 @@ namespace calculator
                         else
                             lblResult.Text = lblResult.Text.Substring(1);
                     }
+                    if(lastClickedButton.type == SymbolType.Operator)
+                    {
+                        operand1 = -operand1;
+                    }
                     break;
                 case SymbolType.Backspace:
                     if (lastClickedButton.type != SymbolType.Operator)
@@ -150,7 +154,7 @@ namespace calculator
                     break;
             }
 
-            if (clickedButtonStruct.type != SymbolType.Backspace)
+            if (clickedButtonStruct.type != SymbolType.Backspace && clickedButtonStruct.type!=SymbolType.PlusMinusSign)
                 lastClickedButton = clickedButtonStruct;
 
         }
@@ -169,14 +173,29 @@ namespace calculator
             operand2 = decimal.Parse(lblResult.Text);
             switch (clickedButtonStruct.Content)
             {
-                case '\u215f':
+                case '\u215f':// 1/x
                     result = 1 / operand2;
+                    break;
+                case '%':
+                    result = operand1 * operand2 / 100;
+                    break;
+                case '\u00b2': // x^2
+                    result = operand2*operand2;
+                    break;
+                case '\u221A': // sqr
+                    result = (decimal)Math.Sqrt((double)operand2);
                     break;
                 default:
                     break;
             }
             lblResult.Text = result.ToString();
         }
+
+        private void calculator_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Console.WriteLine(e.ToString());
+        }
+
         private void ManageOperator(BtnStruct clickedButtonStruct)
         {
 

@@ -30,6 +30,8 @@
         {
             this.lblResult = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblHistory = new System.Windows.Forms.Label();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblResult
@@ -47,12 +49,22 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lblHistory);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(320, 24);
             this.panel1.TabIndex = 1;
+            // 
+            // lblHistory
+            // 
+            this.lblHistory.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblHistory.Location = new System.Drawing.Point(0, 0);
+            this.lblHistory.Name = "lblHistory";
+            this.lblHistory.Size = new System.Drawing.Size(320, 23);
+            this.lblHistory.TabIndex = 0;
+            this.lblHistory.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // calculator
             // 
@@ -62,11 +74,12 @@
             this.Controls.Add(this.lblResult);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "calculator";
             this.Load += new System.EventHandler(this.calculator_Load);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.calculator_KeyPress);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -75,6 +88,7 @@
 
         private System.Windows.Forms.Label lblResult;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblHistory;
     }
 }
 

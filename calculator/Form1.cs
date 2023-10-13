@@ -17,7 +17,7 @@ namespace calculator
         const int lblResultMarginWidth = 24;
         const int lblResultMaxDigits = 25;
         char lastOperator = ' ';
-        decimal operand1, operand2, result;
+        decimal operand1, operand2, result,operand3;
         BtnStruct lastClickedButton;
         public calculator()
         {
@@ -97,6 +97,10 @@ namespace calculator
             switch (clickedButtonStruct.type)
             {
                 case SymbolType.Number:
+                    if(lastClickedButton.Content=='=')
+                    {
+                        clearAll();
+                    }
                     if (clickedButtonStruct.type == SymbolType.Number)
                     {
                         if (lblResult.Text == "0" || lastClickedButton.type == SymbolType.Operator)
@@ -109,9 +113,28 @@ namespace calculator
                         lastOperator = clickedButtonStruct.Content;
                     else
                         ManageOperator(clickedButtonStruct);
+                    if (clickedButtonStruct.Content!= '=')
+                    {
+                        lblHistory.Text = operand1.ToString()+" "+clickedButtonStruct.Content;
+                    }
+                    else
+                    {
+                        if(lastClickedButton.Content!='=')
+                        {
+                            lblHistory.Text += operand2.ToString() + " " + "=" + " " + result.ToString();
+                            operand3 = result;
+                        }
+                        else
+                        {
+                            lblHistory.Text = operand3.ToString()+" " + lastOperator.ToString()+ " "+ operand2.ToString() + " " + "=" + " " + result.ToString();
+                            operand3 = result;
+                        }
+                    }
                     break;
                 case SymbolType.SpecialOperator:
+                    lblHistory.Text = " ";
                     ManageSpecialOperator(clickedButtonStruct);
+
                     break;
 
                 case SymbolType.DecimalPoint:
@@ -156,11 +179,14 @@ namespace calculator
 
             if (clickedButtonStruct.type != SymbolType.Backspace && clickedButtonStruct.type!=SymbolType.PlusMinusSign)
                 lastClickedButton = clickedButtonStruct;
-
+            
+            
+           
         }
 
         private void clearAll()
         {
+            lblHistory.Text = " ";
             lblResult.Text = "0";
             lastOperator = ' ';
             operand1 = 0;

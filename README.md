@@ -5,13 +5,20 @@ Lo scopo del progetto **calculator** e di creare una calcolatrice che supporta i
 
 Le funzionalità presenti al momento si divido in:
 * Operazioni di base
-    * addizione
-    * sottrazione
-    * moltiplicazione
-    * divisione
+    * Addizione
+    * Sottrazione
+    * Moltiplicazione
+    * Divisione
 * Operazioni complesse
-    * radice quadrata
-    * elevamento alla potenza di 2
-    * percentuale
-    * numero reciproco
+    * Radice quadrata
+    * Elevamento alla potenza di 2
+    * Percentuale
+    * Numero reciproco
 
+La cronologia è ancora rudimentale, funziona solo per le operazioni di base, prossimamente verrà migliorata.
+Dopodichè verrà aggiunto il funzionamento tramite tastiera.
+
+### Links
+[Piovesan Ettore](https://github.com/EttorePiovesan)
+
+### Languages C#
